@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class EmployeeUtility {
 
 	private List<Employee> empList = new ArrayList<>();
-	private Map<Integer, Integer> tenureCountMap = new HashMap<>();
+	// Map<Integer, Integer> tenureCountMap = new HashMap<>();
 
 	public EmployeeUtility() {
 
@@ -56,34 +56,28 @@ public class EmployeeUtility {
 
 	}
 
-	public Map<Object, Long> tenureWiseCount() {
-		
-		
-		//Approach #1
+	public Map<Integer, Long> tenureWiseCount() {
 
-		Consumer<Employee> action = e -> {
-			int years = Period.between(e.getDoj(), LocalDate.now()).getYears();
+		// Approach #1
+		/*
+		 * Consumer<Employee> action = e -> { int years = Period.between(e.getDoj(),
+		 * LocalDate.now()).getYears();
+		 * 
+		 * if (!tenureCountMap.containsKey(years)) { tenureCountMap.put(years, 1); }
+		 * else { tenureCountMap.put(years, tenureCountMap.get(years).intValue() + 1); }
+		 * };
+		 * 
+		 * empList.stream().forEach(action);
+		 */
 
-			if (!tenureCountMap.containsKey(years)) {
-				tenureCountMap.put(years, 1);
-			} else {
-				tenureCountMap.put(years, tenureCountMap.get(years).intValue() + 1);
-			}
-		};
+		// System.out.println(tenureCountMap);
 
-		empList.stream().forEach(action);
-		//System.out.println(tenureCountMap);
-		
-		
-		//Approach #2
-		
-		Map<Object, Long> yearWiseCountMap = empList.stream().collect(
-				Collectors.groupingBy(e -> Period.between(e.getDoj(), LocalDate.now()).getYears(), Collectors.counting()));
-		
+		// #Approach2
+
+		Map<Integer, Long> yearWiseCountMap = empList.stream().collect(Collectors
+				.groupingBy(e -> Period.between(e.getDoj(), LocalDate.now()).getYears(), Collectors.counting()));
+
 		return yearWiseCountMap;
-		
-		
-		
 
 	}
 
@@ -91,7 +85,8 @@ public class EmployeeUtility {
 
 		EmployeeUtility employeeUtility = new EmployeeUtility();
 		System.out.println(employeeUtility.findOutLongTenureEmployees().toString());
-		System.out.println("Year wise count is:"+employeeUtility.tenureWiseCount());;
+		System.out.println("Year wise count is:" + employeeUtility.tenureWiseCount());
+		;
 
 	}
 
