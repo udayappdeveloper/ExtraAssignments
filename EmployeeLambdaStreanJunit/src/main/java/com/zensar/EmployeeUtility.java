@@ -86,7 +86,7 @@ public class EmployeeUtility {
 		EmployeeUtility employeeUtility = new EmployeeUtility();
 		System.out.println(employeeUtility.findOutLongTenureEmployees().toString());
 		System.out.println("Year wise count is:" + employeeUtility.tenureWiseCount());
-		;
+		
 
 	}
 
